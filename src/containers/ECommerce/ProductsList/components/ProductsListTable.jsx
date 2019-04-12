@@ -4,6 +4,7 @@ import { ButtonToolbar, ButtonGroup, Button, Card, CardBody, Col } from 'reactst
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MagnifyIcon from 'mdi-react/MagnifyIcon';
+
 import EditTable from '../../../../shared/components/table/EditableTable';
 import Pagination from '../../../../shared/components/pagination/Pagination';
 
