@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import EyeIcon from 'mdi-react/EyeIcon';
 import KeyVariantIcon from 'mdi-react/KeyVariantIcon';
-import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon';
 import MailRuIcon from 'mdi-react/MailRuIcon';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class RegisterForm extends PureComponent {
@@ -33,20 +31,6 @@ class RegisterForm extends PureComponent {
 
     return (
       <form className="form" onSubmit={handleSubmit}>
-        <div className="form__form-group">
-          <span className="form__form-group-label">Username</span>
-          <div className="form__form-group-field">
-            <div className="form__form-group-icon">
-              <AccountOutlineIcon />
-            </div>
-            <Field
-              name="username"
-              component="input"
-              type="text"
-              placeholder="Name"
-            />
-          </div>
-        </div>
         <div className="form__form-group">
           <span className="form__form-group-label">E-mail</span>
           <div className="form__form-group-field">
@@ -81,7 +65,7 @@ class RegisterForm extends PureComponent {
           </div>
         </div>
         <div className="account__btns">
-          <Link className="btn btn-primary account__btn" to="/dashboard">Sign Up</Link>
+          <button type="submit" className="btn btn-primary account__btn">Sign Up</button>
         </div>
       </form>
     );

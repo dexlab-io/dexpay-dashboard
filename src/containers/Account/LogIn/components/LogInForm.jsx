@@ -5,6 +5,7 @@ import KeyVariantIcon from 'mdi-react/KeyVariantIcon';
 import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import renderCheckBoxField from '../../../../shared/components/form/CheckBox';
 
 class LogInForm extends PureComponent {
@@ -34,16 +35,16 @@ class LogInForm extends PureComponent {
     return (
       <form className="form" onSubmit={handleSubmit}>
         <div className="form__form-group">
-          <span className="form__form-group-label">Username</span>
+          <span className="form__form-group-label">Email</span>
           <div className="form__form-group-field">
             <div className="form__form-group-icon">
               <AccountOutlineIcon />
             </div>
             <Field
-              name="username"
+              name="email"
               component="input"
               type="text"
-              placeholder="Name"
+              placeholder="Email address"
             />
           </div>
         </div>
@@ -79,7 +80,7 @@ class LogInForm extends PureComponent {
           </div>
         </div>
         <div className="account__btns">
-          <Link className="btn btn-primary account__btn" to="/dashboard">Sign In</Link>
+          <button type="submit" className="btn btn-primary account__btn">Sign In</button>
           <Link className="btn btn-outline-primary account__btn" to="/register">Create
             Account
           </Link>
