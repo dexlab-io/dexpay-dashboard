@@ -35,7 +35,7 @@ export default class TopbarProfile extends PureComponent {
             <div className="topbar__menu-divider" />
             <TopbarMenuLink title="Account Settings" icon="cog" path="/account/profile" />
             <TopbarMenuLink title="Lock Screen" icon="lock" path="/lock_screen" />
-            <TopbarMenuLink title="Log Out" icon="exit" path="/log_in" />
+            <TopbarMenuLink title="Log Out" icon="exit" path="/login" />
           </div>
         </Collapse>
       </div>

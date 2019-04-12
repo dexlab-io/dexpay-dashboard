@@ -56,7 +56,7 @@ const TopbarNavOtherPages = () => (
         <TopbarNavCategory title="Account" icon="user">
           <TopbarNavLink title="Email Confirmation" route="/account/email_confirmation" />
           <TopbarNavLink title="Lock Screen" route="/lock_screen" />
-          <TopbarNavLink title="Log In" route="/log_in" />
+          <TopbarNavLink title="Log In" route="/login" />
           <TopbarNavLink title="Log In Photo" route="/log_in_photo" />
           <TopbarNavLink title="Profile" route="/account/profile" />
           <TopbarNavLink title="Register" route="/register" />
@@ -88,7 +88,7 @@ const TopbarNavOtherPages = () => (
         </TopbarNavCategory>
       </DropdownItem>
       <DropdownItem>
-        <TopbarNavLink title="Log Out" icon="exit" route="/log_in" />
+        <TopbarNavLink title="Log Out" icon="exit" route="/login" />
       </DropdownItem>
     </DropdownMenu>
   </UncontrolledDropdown>

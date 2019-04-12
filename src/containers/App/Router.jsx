@@ -23,7 +23,6 @@ import StoreDashboard from '../Dashboards/Store/index';
 
 import Landing from '../Landing/index';
 
-
 const Account = () => (
   <Switch>
     <Route path="/account/profile" component={Profile} />
@@ -35,11 +34,11 @@ const Store = () => (
   <Switch>
     <Route path="/store/cart" component={Cart} />
     <Route path="/store/catalog" component={Catalog} />
-    <Route path="/store/orders_list" component={OrdersList} />
+    <Route path="/store/orders" component={OrdersList} />
     <Route path="/store/payment" component={Payment} />
-    <Route path="/store/product_edit" component={ProductEdit} />
+    <Route path="/store/product/:id" component={ProductEdit} />
     <Route path="/store/product_page" component={ProductPage} />
-    <Route path="/store/products_list" component={ProductsList} />
+    <Route path="/store/products" component={ProductsList} />
   </Switch>
 );
 
@@ -60,8 +59,8 @@ const Router = () => (
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route path="/404" component={NotFound404} />
-        <Route path="/lock_screen" component={LockScreen} />
-        <Route path="/log_in" component={LogIn} />
+        <Route path="/lock-screen" component={LockScreen} />
+        <Route path="/login" component={LogIn} />
         <Route path="/register" component={Register} />
         <Route path="/" component={wrappedRoutes} />
       </Switch>

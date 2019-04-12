@@ -81,7 +81,7 @@ class RegisterForm extends PureComponent {
           </div>
         </div>
         <div className="account__btns">
-          <Link className="btn btn-primary account__btn" to="/dashboard_default">Sign Up</Link>
+          <Link className="btn btn-primary account__btn" to="/dashboard">Sign Up</Link>
         </div>
       </form>
     );

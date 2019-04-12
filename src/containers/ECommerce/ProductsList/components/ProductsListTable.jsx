@@ -38,7 +38,7 @@ StatusFormatter.propTypes = {
 const EditFormatter = () => (
   <ButtonToolbar>
     <ButtonGroup className="btn-group--icons">
-      <Link to="/store/product_edit">
+      <Link to="/store/product/1">
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
       <Button outline><span className="lnr lnr-trash" /></Button>

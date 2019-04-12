@@ -34,7 +34,7 @@ class App extends Component {
     const { loaded, loading } = this.state;
     return (
       <Provider store={store}>
-        <BrowserRouter basename="/dexpay">
+        <BrowserRouter basename="/">
           <I18nextProvider i18n={i18next}>
             <ScrollToTop>
               {!loaded &&
