@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import ProductsListTable from './components/ProductsListTable';
+import Loading from '../../../shared/components/Loading';
 
 const query = gql`
   {
@@ -30,7 +31,7 @@ const ProductsList = () => (
     <Row>
       <Query query={query} fetchPolicy="cache-and-network">
         {({ data, loading, error }) => {
-            if (loading && !data.products) return <p>loading...</p>;
+            if (loading && !data.products) return <Loading />;
             if (error) return <p>Error: {error.message}</p>;
             // console.log('products', data.products);
 

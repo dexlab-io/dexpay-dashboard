@@ -8,27 +8,8 @@ import MagnifyIcon from 'mdi-react/MagnifyIcon';
 import EditTable from '../../../../shared/components/table/EditableTable';
 import Pagination from '../../../../shared/components/pagination/Pagination';
 
-
-const Img1 = `${process.env.PUBLIC_URL}/img/for_store/vase.png`;
-const Img2 = `${process.env.PUBLIC_URL}/img/for_store/vase_2.png`;
-const Img3 = `${process.env.PUBLIC_URL}/img/for_store/vase_3.png`;
-const Img4 = `${process.env.PUBLIC_URL}/img/for_store/fur.png`;
-const Img5 = `${process.env.PUBLIC_URL}/img/for_store/pillow.png`;
-const Img6 = `${process.env.PUBLIC_URL}/img/for_store/pillow_2.png`;
-const Img7 = `${process.env.PUBLIC_URL}/img/for_store/pillow_dog.png`;
-
-const PhotoFormatter = ({ value }) => (
-  <div className="products-list__img-wrap">
-    <img src={value} alt="" />
-  </div>
-);
-
-PhotoFormatter.propTypes = {
-  value: PropTypes.string.isRequired,
-};
-
 const StatusFormatter = ({ value }) => (
-  value === 'Enabled' ? <span className="badge badge-success">Enabled</span> :
+  value === 'active' ? <span className="badge badge-success">Enabled</span> :
   <span className="badge badge-disabled">Disabled</span>
 );
 
@@ -36,10 +17,10 @@ StatusFormatter.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-const EditFormatter = () => (
+const EditFormatter = ({ value }) => (
   <ButtonToolbar>
     <ButtonGroup className="btn-group--icons">
-      <Link to="/store/product/1">
+      <Link to={`/store/product/${value}`}>
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
       <Button outline><span className="lnr lnr-trash" /></Button>
@@ -50,6 +31,7 @@ const EditFormatter = () => (
 export default class ProductsListTable extends PureComponent {
   constructor() {
     super();
+
     this.heads = [
       {
         key: 'id',
@@ -58,13 +40,8 @@ export default class ProductsListTable extends PureComponent {
         sortable: true,
       },
       {
-        key: 'name',
+        key: 'title',
         name: 'Name',
-        sortable: true,
-      },
-      {
-        key: 'category',
-        name: 'Category',
         sortable: true,
       },
       {
@@ -86,11 +63,6 @@ export default class ProductsListTable extends PureComponent {
         formatter: EditFormatter,
       },
     ];
-
-    this.state = {
-      rows: this.createRows(17),
-      pageOfItems: [],
-    };
   }
 
   onChangePage = (pageOfItems) => {
@@ -98,41 +70,13 @@ export default class ProductsListTable extends PureComponent {
     this.setState({ pageOfItems });
   };
 
-  getRandomDate = (start, end) => new Date(start.getTime() + (Math.random() * (end.getTime()
-    - start.getTime()))).toLocaleDateString();
-
-  createRows = (numberOfRows) => {
-    const rows = [];
-
-    for (let i = 1; i < numberOfRows + 1; i += 1) {
-      rows.push({
-        id: Math.min(99999, Math.round((Math.random() * 99999) + 1000)),
-        photo: [Img1, Img2, Img3, Img4, Img5, Img6, Img7][Math.floor((Math.random() * 7))],
-        name: ['Glass Vase', 'Pillow'][Math.floor((Math.random() * 2))],
-        category: 'Home accessories',
-        quantity: Math.min(400, Math.round(Math.random() * 400)),
-        articul: `art${Math.min(99999, Math.round((Math.random() * 99999) + 1))}`,
-        price: Math.min(1000, (Math.random() * 1000) + 20).toFixed(2),
-        status: ['Enabled', 'Disabled'][Math.floor((Math.random() * 2))],
-      });
-    }
-    return rows;
-  };
-
   render() {
     const { products }=this.props;
-    console.log('products', products,this.state.rowsrow)
     const rows = products.map(product => {
       return {
-        articul: "art63976",
-        category: "Home accessories",
-        id: 72298,
-        name: "Pillow",
-        photo: "/img/for_store/vase_3.png",
-        price: "259.19",
-        quantity: 113,
-        status: "Enabled",
-      };
+        ...product,
+        edit: product.id
+      }
     });
 
     return (
@@ -148,13 +92,13 @@ export default class ProductsListTable extends PureComponent {
                     <MagnifyIcon />
                   </div>
                 </form>
-                <Link className="btn btn-primary products-list__btn-add" to="/e-commerce/product_edit">Add new
-                  product
+                <Link className="btn btn-primary products-list__btn-add" to="/store/products/create">
+                  Add new product
                 </Link>
               </ButtonToolbar>
             </div>
-            <EditTable heads={this.heads} rows={this.state.rows} enableRowSelect />
-            <Pagination items={this.state.rows} onChangePage={this.onChangePage} />
+            <EditTable heads={this.heads} rows={rows} enableRowSelect />
+            <Pagination items={products} onChangePage={this.onChangePage} />
           </CardBody>
         </Card>
       </Col>
