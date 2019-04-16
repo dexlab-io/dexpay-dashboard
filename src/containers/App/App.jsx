@@ -5,7 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 import { ApolloProvider } from 'react-apollo';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { hot } from 'react-hot-loader';
+// import { hot } from 'react-hot-loader';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../scss/app.scss';
 import Router from './Router';
@@ -61,4 +61,5 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+// export default hot(module)(App);
+export default App;

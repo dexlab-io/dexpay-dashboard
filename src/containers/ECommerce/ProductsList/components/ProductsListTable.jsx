@@ -120,6 +120,21 @@ export default class ProductsListTable extends PureComponent {
   };
 
   render() {
+    const { products }=this.props;
+    console.log('products', products,this.state.rowsrow)
+    const rows = products.map(product => {
+      return {
+        articul: "art63976",
+        category: "Home accessories",
+        id: 72298,
+        name: "Pillow",
+        photo: "/img/for_store/vase_3.png",
+        price: "259.19",
+        quantity: 113,
+        status: "Enabled",
+      };
+    });
+
     return (
       <Col md={12} lg={12}>
         <Card>
