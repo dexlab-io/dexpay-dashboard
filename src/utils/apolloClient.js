@@ -6,7 +6,7 @@ import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { createHttpLink } from 'apollo-link-http';
 
-import config from '../utils/config';
+import config from "./config";
 
 const cache = new InMemoryCache();
 

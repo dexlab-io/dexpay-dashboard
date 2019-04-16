@@ -32,10 +32,10 @@ const ProductsList = () => (
         {({ data, loading, error }) => {
             if (loading && !data.products) return <p>loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
-            console.log('products', data.products);
+            // console.log('products', data.products);
 
             return (
-              <ProductsListTable />
+              <ProductsListTable products={data.products} />
             );
           }}
       </Query>

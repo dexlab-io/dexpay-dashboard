@@ -138,14 +138,6 @@ export default class ProductsListTable extends PureComponent {
                 </Link>
               </ButtonToolbar>
             </div>
-            <p>Show
-              <select className="select-options">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-              </select>
-              entries
-            </p>
             <EditTable heads={this.heads} rows={this.state.rows} enableRowSelect />
             <Pagination items={this.state.rows} onChangePage={this.onChangePage} />
           </CardBody>

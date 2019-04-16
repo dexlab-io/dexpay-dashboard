@@ -21,7 +21,7 @@ import ProductEdit from '../ECommerce/ProductEdit/index';
 import ProductsList from '../ECommerce/ProductsList/index';
 import StoreDashboard from '../Dashboards/Store/index';
 
-import Landing from '../Landing/index';
+// import Landing from '../Landing/index';
 
 const Account = () => (
   <Switch>
@@ -57,7 +57,7 @@ const Router = () => (
   <MainWrapper>
     <main>
       <Switch>
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={LogIn} />
         <Route path="/404" component={NotFound404} />
         <Route path="/lock-screen" component={LockScreen} />
         <Route path="/login" component={LogIn} />
