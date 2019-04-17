@@ -16,6 +16,7 @@ import Register from '../Account/Register/index';
 
 import Cart from '../ECommerce/Cart/index';
 import OrdersList from '../ECommerce/OrdersList/index';
+import OrderCreate from '../ECommerce/OrderCreate/index'
 import Payment from '../ECommerce/Payment/index';
 import ProductEdit from '../ECommerce/ProductEdit/index';
 import ProductsList from '../ECommerce/ProductsList/index';
@@ -34,6 +35,7 @@ const Store = () => (
   <Switch>
     <Route path="/store/cart" component={Cart} />
     <Route path="/store/catalog" component={Catalog} />
+    <Route path="/store/order/create" component={OrderCreate} />
     <Route path="/store/orders" component={OrdersList} />
     <Route path="/store/payment" component={Payment} />
     <Route path="/store/product/:id" component={ProductEdit} />

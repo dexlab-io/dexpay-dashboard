@@ -110,7 +110,7 @@ export default class OrdersListTable extends PureComponent {
                     <MagnifyIcon />
                   </div>
                 </form>
-                <Link className="btn btn-primary products-list__btn-add" to="/store/orders/create">
+                <Link className="btn btn-primary products-list__btn-add" to="/store/order/create">
                   Create new invoice
                 </Link>
               </ButtonToolbar>
