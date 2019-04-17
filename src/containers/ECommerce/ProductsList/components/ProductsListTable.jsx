@@ -9,8 +9,7 @@ import EditTable from '../../../../shared/components/table/EditableTable';
 import Pagination from '../../../../shared/components/pagination/Pagination';
 
 const StatusFormatter = ({ value }) => (
-  value === 'active' ? <span className="badge badge-success">Enabled</span> :
-  <span className="badge badge-disabled">Disabled</span>
+  <span className="badge badge-success">{value}</span>
 );
 
 StatusFormatter.propTypes = {

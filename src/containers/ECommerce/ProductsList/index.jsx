@@ -40,7 +40,6 @@ const ProductsList = () => (
             );
           }}
       </Query>
-
     </Row>
   </Container>
 );

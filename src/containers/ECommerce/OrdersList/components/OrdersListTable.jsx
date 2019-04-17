@@ -1,22 +1,15 @@
 /* eslint-disable react/no-unused-state */
 import React, { PureComponent } from 'react';
-import { Card, CardBody, Col } from 'reactstrap';
+import { Card, CardBody, Col, ButtonToolbar } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import MagnifyIcon from 'mdi-react/MagnifyIcon';
+
 import EditTable from '../../../../shared/components/table/EditableTable';
 import Pagination from '../../../../shared/components/pagination/Pagination';
 
-const MoneyFormatter = ({ value }) => (
-  <div>
-      ${value}
-  </div>);
-
-MoneyFormatter.propTypes = {
-  value: PropTypes.string.isRequired,
-};
-
 const StatusFormatter = ({ value }) => (
-  value === 'Enabled' ? <span className="badge badge-success">Enabled</span> :
-  <span className="badge badge-disabled">Disabled</span>
+  <span className="badge badge-success">{value}</span>
 );
 
 StatusFormatter.propTypes = {
@@ -26,44 +19,27 @@ StatusFormatter.propTypes = {
 export default class OrdersListTable extends PureComponent {
   constructor() {
     super();
+
     this.heads = [
       {
-        key: 'id',
+        key: 'invoiceNumber',
         name: 'ID',
         width: 80,
         sortable: true,
       },
       {
-        key: 'date',
-        name: 'Date',
+        key: 'fiatCurrency',
+        name: 'Currency',
         sortable: true,
       },
       {
-        key: 'customer_name',
-        name: 'Customer Name',
+        key: 'fiatAmount',
+        name: 'Amount',
         sortable: true,
       },
       {
-        key: 'price',
-        name: 'Price',
-        sortable: true,
-        formatter: MoneyFormatter,
-      },
-      {
-        key: 'tax',
-        name: 'Tax',
-        sortable: true,
-        formatter: MoneyFormatter,
-      },
-      {
-        key: 'delivery',
-        name: 'Delivery',
-        sortable: true,
-        formatter: MoneyFormatter,
-      },
-      {
-        key: 'quantity',
-        name: 'Quantity',
+        key: 'cryptoAmount',
+        name: 'Crypto Amount',
         sortable: true,
       },
       {
@@ -73,12 +49,17 @@ export default class OrdersListTable extends PureComponent {
         formatter: StatusFormatter,
         width: 110,
       },
+      {
+        key: 'createdAt',
+        name: 'Created At',
+        sortable: true,
+      },
     ];
 
-    this.state = {
-      rows: this.createRows(17),
-      pageOfItems: [],
-    };
+    // this.state = {
+    //   rows: this.createRows(17),
+    //   pageOfItems: [],
+    // };
   }
 
   onChangePage = (pageOfItems) => {
@@ -86,45 +67,56 @@ export default class OrdersListTable extends PureComponent {
     this.setState({ pageOfItems });
   };
 
-  getRandomDate = (start, end) => new Date(start.getTime() + (Math.random() * (end.getTime()
-    - start.getTime()))).toLocaleDateString();
+  // getRandomDate = (start, end) => new Date(start.getTime() + (Math.random() * (end.getTime()
+  //   - start.getTime()))).toLocaleDateString();
 
-  createRows = (numberOfRows) => {
-    const rows = [];
+  // createRows = (numberOfRows) => {
+  //   const rows = [];
 
-    for (let i = 1; i < numberOfRows + 1; i += 1) {
-      rows.push({
-        id: Math.min(99999, Math.round((Math.random() * 99999) + 1000)),
-        date: this.getRandomDate(new Date(2017, 3, 1), new Date(2018, 3, 1)),
-        customer_name: ['Maria', 'Bobby  ', 'Alexander'][Math.floor((Math.random() * 3))],
-        price: Math.min(1000, (Math.random() * 1000) + 20).toFixed(2),
-        tax: Math.min(10, Math.random() * 10).toFixed(2),
-        delivery: Math.min(10, Math.random() * 10).toFixed(2),
-        quantity: Math.min(5, Math.round((Math.random() * 5) + 1)),
-        status: ['Enabled', 'Disabled'][Math.floor((Math.random() * 2))],
-      });
-    }
-    return rows;
-  };
+  //   for (let i = 1; i < numberOfRows + 1; i += 1) {
+  //     rows.push({
+  //       id: Math.min(99999, Math.round((Math.random() * 99999) + 1000)),
+  //       date: this.getRandomDate(new Date(2017, 3, 1), new Date(2018, 3, 1)),
+  //       customer_name: ['Maria', 'Bobby  ', 'Alexander'][Math.floor((Math.random() * 3))],
+  //       price: Math.min(1000, (Math.random() * 1000) + 20).toFixed(2),
+  //       tax: Math.min(10, Math.random() * 10).toFixed(2),
+  //       delivery: Math.min(10, Math.random() * 10).toFixed(2),
+  //       quantity: Math.min(5, Math.round((Math.random() * 5) + 1)),
+  //       status: ['Enabled', 'Disabled'][Math.floor((Math.random() * 2))],
+  //     });
+  //   }
+  //   return rows;
+  // };
 
   render() {
+    const { invoices }=this.props;
+    const rows = invoices.map(invoice => {
+      return {
+        ...invoice,
+        edit: invoice.id
+      }
+    });
+
     return (
       <Col md={12} lg={12}>
         <Card>
           <CardBody>
-            <div className="card__title">
-              <h5 className="bold-text">Orders list</h5>
+          <div className="card__title">
+              <h5 className="bold-text">Orders List</h5>
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                <form className="form">
+                  <div className="form__form-group products-list__search">
+                    <input placeholder="Search..." name="search" />
+                    <MagnifyIcon />
+                  </div>
+                </form>
+                <Link className="btn btn-primary products-list__btn-add" to="/store/orders/create">
+                  Create new invoice
+                </Link>
+              </ButtonToolbar>
             </div>
-            <p>Show
-              <select className="select-options">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-              </select>
-              entries
-            </p>
-            <EditTable heads={this.heads} rows={this.state.rows} />
-            <Pagination items={this.state.rows} onChangePage={this.onChangePage} />
+            <EditTable heads={this.heads} rows={rows} />
+            <Pagination items={invoices} onChangePage={this.onChangePage} />
           </CardBody>
         </Card>
       </Col>
