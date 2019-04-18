@@ -35,8 +35,8 @@ class Register extends React.Component {
         <div className="account__wrapper">
           <div className="account__card">
             <div className="account__head">
-              <h3 className="account__title">Welcome to
-                Dexpay
+              <h3 className="account__title">
+                Welcome to Dexpay
               </h3>
               <h4 className="account__subhead subhead">Create an account</h4>
             </div>

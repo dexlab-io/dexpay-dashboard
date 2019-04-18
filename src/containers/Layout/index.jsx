@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import NotificationSystem from 'rc-notification';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import Topbar from './topbar/Topbar';
 import TopbarWithNavigation from './topbar_with_navigation/TopbarWithNavigation';
 import Sidebar from './sidebar/Sidebar';
@@ -14,6 +17,22 @@ import { changeMobileSidebarVisibility, changeSidebarVisibility } from '../../re
 import { changeThemeToDark, changeThemeToLight } from '../../redux/actions/themeActions';
 import { changeBorderRadius, toggleBoxShadow, toggleTopNavigation } from '../../redux/actions/customizerActions';
 import { CustomizerProps, SidebarProps } from '../../shared/prop-types/ReducerProps';
+import Loading from '../../shared/components/Loading';
+
+const query = gql`
+  {
+    me {
+      id
+      email
+      profile {
+        fullName
+      }
+      store {
+        name
+      }
+    }
+  }
+`;
 
 let notification = null;
 
@@ -85,31 +104,42 @@ class Layout extends Component {
     });
 
     return (
-      <div className={layoutClass}>
-        {this.props.customizer.topNavigation ?
-          <TopbarWithNavigation
-            changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-          /> :
-          <Topbar
-            changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-            changeSidebarVisibility={this.changeSidebarVisibility}
-          />
-        }
-        {this.props.customizer.topNavigation ?
-          <SidebarMobile
-            sidebar={sidebar}
-            changeToDark={this.changeToDark}
-            changeToLight={this.changeToLight}
-            changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-          /> :
-          <Sidebar
-            sidebar={sidebar}
-            changeToDark={this.changeToDark}
-            changeToLight={this.changeToLight}
-            changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
-          />
-        }
-      </div>
+      <Query query={query} fetchPolicy="cache-and-network">
+        {({ data, loading, error }) => {
+          if (loading && !data.me) return <Loading />;
+          if (error) return <p>Error: {error.message}</p>;
+          // console.log('me', data.me);
+
+          return (
+            <div className={layoutClass}>
+              {this.props.customizer.topNavigation ?
+                <TopbarWithNavigation
+                  changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
+                /> :
+                <Topbar
+                  changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
+                  changeSidebarVisibility={this.changeSidebarVisibility}
+                  user={data.me}
+                />
+              }
+              {this.props.customizer.topNavigation ?
+                <SidebarMobile
+                  sidebar={sidebar}
+                  changeToDark={this.changeToDark}
+                  changeToLight={this.changeToLight}
+                  changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
+                /> :
+                <Sidebar
+                  sidebar={sidebar}
+                  changeToDark={this.changeToDark}
+                  changeToLight={this.changeToLight}
+                  changeMobileSidebarVisibility={this.changeMobileSidebarVisibility}
+                />
+              }
+            </div>
+          );
+        }}
+      </Query>
     );
   }
 }

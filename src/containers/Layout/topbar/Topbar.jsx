@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopbarSidebarButton from './TopbarSidebarButton';
 import TopbarProfile from './TopbarProfile';
-import TopbarLanguage from './TopbarLanguage';
+// import TopbarLanguage from './TopbarLanguage';
 
 class Topbar extends PureComponent {
   static propTypes = {
@@ -12,7 +12,7 @@ class Topbar extends PureComponent {
   };
 
   render() {
-    const { changeMobileSidebarVisibility, changeSidebarVisibility } = this.props;
+    const { changeMobileSidebarVisibility, changeSidebarVisibility, user } = this.props;
 
     return (
       <div className="topbar">
@@ -25,8 +25,8 @@ class Topbar extends PureComponent {
             <Link className="topbar__logo" to="/dashboard" />
           </div>
           <div className="topbar__right">
-            <TopbarLanguage />
-            <TopbarProfile />
+            {/* <TopbarLanguage /> */}
+            <TopbarProfile user={user} />
           </div>
         </div>
       </div>
