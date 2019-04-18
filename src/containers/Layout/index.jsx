@@ -43,7 +43,9 @@ class Layout extends Component {
   }
 
   componentWillUnmount() {
-    notification.destroy();
+    if (notification) {
+      notification.destroy();
+    }
   }
 
   changeSidebarVisibility = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import MainWrapper from './MainWrapper';
 import Layout from '../Layout/index';
 
@@ -15,6 +15,17 @@ import OrderCreate from '../ECommerce/OrderCreate/index'
 import OrderEdit from '../ECommerce/OrderEdit/index'
 import ProductsList from '../ECommerce/ProductsList/index';
 import ProductEdit from '../ECommerce/ProductEdit/index';
+
+const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
+      }
+    />
+  );
+};
 
 const Account = () => (
   <Switch>
@@ -32,16 +43,31 @@ const Store = () => (
   </Switch>
 );
 
-const wrappedRoutes = () => (
-  <div>
-    <Layout />
-    <div className="container__wrap">
-      <Route path="/dashboard" component={StoreDashboard} />
-      <Route path="/account" component={Account} />
-      <Route path="/store" component={Store} />
-    </div>
-  </div>
-);
+class WrappedRoutes extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const token = window.localStorage.getItem('token');
+    this.state = {
+      isLoggedIn: !!token
+    };
+  }
+
+  render() {
+    const { isLoggedIn } = this.state;
+
+    return (
+      <div>
+        <Layout />
+        <div className="container__wrap">
+          <PrivateRoute path="/dashboard" component={StoreDashboard} isLoggedIn={isLoggedIn} />
+          <PrivateRoute path="/account" component={Account} isLoggedIn={isLoggedIn} />
+          <PrivateRoute path="/store" component={Store} isLoggedIn={isLoggedIn} />
+        </div>
+      </div>
+    );
+  }
+}
 
 const Router = () => (
   <MainWrapper>
@@ -51,7 +77,7 @@ const Router = () => (
         <Route path="/404" component={NotFound404} />
         <Route path="/login" component={LogIn} />
         <Route path="/register" component={Register} />
-        <Route path="/" component={wrappedRoutes} />
+        <Route path="/" component={WrappedRoutes} />
       </Switch>
     </main>
   </MainWrapper>
