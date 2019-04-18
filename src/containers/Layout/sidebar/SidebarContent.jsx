@@ -12,6 +12,12 @@ class SidebarContent extends Component {
     this.props.onClick();
   };
 
+  handleLogout = () => {
+    window.localStorage.clear();
+    window.location.reload(true);
+    window.location.replace('/');
+  };
+
   render() {
     return (
       <div className="sidebar__content">
@@ -33,7 +39,7 @@ class SidebarContent extends Component {
           </SidebarCategory> */}
         </ul>
         <ul className="sidebar__block">
-          <SidebarLink title="Log Out" icon="exit" route="/login" />
+          <SidebarLink title="Log Out" icon="exit" onClick={this.handleLogout} />
         </ul>
         {/* <ul className="sidebar__block">
           <SidebarLink
