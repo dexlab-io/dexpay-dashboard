@@ -31,13 +31,13 @@ const ProductsList = () => (
     <Row>
       <Query query={query} fetchPolicy="cache-and-network">
         {({ data, loading, error }) => {
-            if (loading && !data.products) return <Loading />;
-            if (error) return <p>Error: {error.message}</p>;
-            // console.log('products', data.products);
+          if (loading && !data.products) return <Loading />;
+          if (error) return <p>Error: {error.message}</p>;
+          // console.log('products', data.products);
 
-            return (
-              <ProductsListTable products={data.products} />
-            );
+          return (
+            <ProductsListTable products={data.products} />
+          );
           }}
       </Query>
     </Row>

@@ -37,12 +37,12 @@ const OrderCreateForm = ({ handleSubmit, reset }) => (
         <div className="form__form-group">
           <span className="form__form-group-label">Currency</span>
           <div className="form__form-group-field">
-          <Field
-            name="currency"
-            component={renderSelectField}
-            type="text"
-            options={currencies}
-            />
+            <Field
+              name="currency"
+              component={renderSelectField}
+              type="text"
+              options={currencies}
+              />
           </div>
         </div>
       </div>
