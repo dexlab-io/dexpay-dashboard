@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
+import ReactLoading from 'react-loading';
 
 export default class Loading extends PureComponent {
   render() {
     return (
-      <p>loading...</p>
+      <ReactLoading type="spin" />
     );
   }
 }

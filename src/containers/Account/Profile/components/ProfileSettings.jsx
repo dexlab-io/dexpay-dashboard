@@ -64,7 +64,8 @@ class ProfileSettings extends PureComponent {
         <div>
           <span className="material-form__label">Full Name</span>
           <Field
-            name="username"
+            label="Name"
+            name="fullName"
             component={renderTextField}
             placeholder="Name"
             defaultValue={this.state.name}
@@ -74,6 +75,7 @@ class ProfileSettings extends PureComponent {
         <div>
           <span className="material-form__label">Email</span>
           <Field
+            label="Email"
             name="email"
             component={renderTextField}
             placeholder="example@mail.com"
@@ -85,28 +87,11 @@ class ProfileSettings extends PureComponent {
         <div>
           <span className="material-form__label">URL</span>
           <Field
+            label="URL"
             name="url"
             component={renderTextField}
             placeholder="https://themeforest.net"
             type="url"
-          />
-        </div>
-        <div>
-          <span className="material-form__label">Password</span>
-          <Field
-            name="password"
-            component={renderTextField}
-            type="password"
-          />
-        </div>
-        <div>
-          <span className="material-form__label">Text Area</span>
-          <Field
-            name="textarea"
-            component={renderTextField}
-            placeholder="Type message here"
-            multiline
-            rowsMax="4"
           />
         </div>
         <ButtonToolbar className="form__button-toolbar">

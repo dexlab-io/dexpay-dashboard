@@ -1,8 +1,32 @@
 import React, { PureComponent } from 'react';
 import { Card, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
-import showResults from './Show';
+import { Mutation } from "react-apollo";
+import gql from 'graphql-tag';
+import swal from 'sweetalert';
+
 import ProfileSettings from './ProfileSettings';
+
+const updateMeMutation = gql`
+  mutation updateMe(
+    $fullName: String,
+    $storeName: String,
+    $walletAddress: String,
+    $walletCurrency: String
+  ) {
+    updateMe(
+      input: {
+        fullName: $fullName,
+        storeName: $storeName,
+        walletAddress: $walletAddress,
+        walletCurrency: $walletCurrency
+      }
+    ) {
+      id
+      email
+    }
+  }
+`;
 
 export default class ProfileTabs extends PureComponent {
   constructor(props) {
@@ -23,6 +47,9 @@ export default class ProfileTabs extends PureComponent {
   }
 
   render() {
+    const { user } = this.props;
+    console.log('user', user);
+
     return (
       <Col md={12} lg={12} xl={12}>
         <Card>
@@ -40,11 +67,39 @@ export default class ProfileTabs extends PureComponent {
                   </NavLink>
                 </NavItem>
               </Nav>
-              <TabContent activeTab={this.state.activeTab}>
-                <TabPane tabId="1">
-                  <ProfileSettings onSubmit={showResults} />
-                </TabPane>
-              </TabContent>
+              <Mutation
+                mutation={updateMeMutation}
+                update={() => {
+                  swal("Profile updated!");
+                }}
+                onError={error => {
+                  swal(
+                    'Issue!',
+                    error.message.replace('GraphQL error: ', ''),
+                    'warning'
+                  );
+                }}
+              >
+                {updateMe => (
+                  <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId="1">
+                      <ProfileSettings
+                        enableReinitialize
+                        initialValues={{
+                          ...user.profile,
+                          ...user.store
+                        }}
+                        onSubmit={data => {
+                          // console.log('login form', data);
+                          return updateMe({
+                            variables: data
+                          });
+                        }}
+                      />
+                    </TabPane>
+                  </TabContent>
+                )}
+              </Mutation>
             </div>
           </div>
         </Card>
