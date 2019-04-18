@@ -21,7 +21,7 @@ class SidebarContent extends Component {
         <ul className="sidebar__block">
           <SidebarCategory title="Manage store" icon="cart">
             <SidebarLink title="Products List" route="/store/products" onClick={this.hideSidebar} />
-            <SidebarLink title="Transaction List" route="/store/orders" onClick={this.hideSidebar} />
+            <SidebarLink title="Invoices List" route="/store/orders" onClick={this.hideSidebar} />
             {/* <SidebarLink title="Cart" route="/e-commerce/cart" onClick={this.hideSidebar} />
             <SidebarLink title="Catalog" route="/e-commerce/catalog" onClick={this.hideSidebar} />
             <SidebarLink title="Payment" route="/e-commerce/payment" onClick={this.hideSidebar} />

@@ -4,9 +4,18 @@ import { ButtonToolbar, ButtonGroup, Button, Card, CardBody, Col } from 'reactst
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import MagnifyIcon from 'mdi-react/MagnifyIcon';
+import { Mutation } from "react-apollo";
+import gql from 'graphql-tag';
+import swal from 'sweetalert';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
 import Pagination from '../../../../shared/components/pagination/Pagination';
+
+const deleteProductMutation = gql`
+  mutation deleteProduct($id: ID!) {
+    deleteProduct(id: $id)
+  }
+`;
 
 const StatusFormatter = ({ value }) => (
   <span className="badge badge-success">{value}</span>
@@ -22,7 +31,34 @@ const EditFormatter = ({ value }) => (
       <Link to={`/store/product/${value}`}>
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
-      <Button outline><span className="lnr lnr-trash" /></Button>
+      <Mutation
+        mutation={deleteProductMutation}
+        update={() => {
+          swal("Product deleted!");
+        }}
+        onError={error => {
+          swal(
+            'Issue!',
+            error.message.replace('GraphQL error: ', ''),
+            'warning'
+          );
+        }}
+      >
+        {deleteProduct => (
+          <Button
+            outline
+            onClick={() => {
+              return deleteProduct({
+                variables: {
+                  id: value
+                }
+              });
+            }}>
+            <span className="lnr lnr-trash" />
+          </Button>
+        )}
+      </Mutation>
+
     </ButtonGroup>
   </ButtonToolbar>
 );
