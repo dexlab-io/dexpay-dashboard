@@ -10,20 +10,23 @@ import ProfileSettings from './ProfileSettings';
 const updateMeMutation = gql`
   mutation updateMe(
     $fullName: String,
-    $storeName: String,
+    $name: String,
+    $websiteUrl: String,
+    $taxNumber: String,
     $walletAddress: String,
-    $walletCurrency: String
+    $currency: String
   ) {
     updateMe(
       input: {
         fullName: $fullName,
-        storeName: $storeName,
+        storeName: $name,
+        websiteUrl: $websiteUrl,
+        taxNumber: $taxNumber,
         walletAddress: $walletAddress,
-        walletCurrency: $walletCurrency
+        walletCurrency: $currency
       }
     ) {
       id
-      email
     }
   }
 `;
