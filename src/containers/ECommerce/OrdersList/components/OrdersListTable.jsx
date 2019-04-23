@@ -4,8 +4,17 @@ import { Card, CardBody, Col, ButtonToolbar, ButtonGroup, Button } from 'reactst
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { Mutation } from "react-apollo";
+import gql from 'graphql-tag';
+import swal from 'sweetalert';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
+
+const deleteInvoiceMutation = gql`
+  mutation deleteInvoice($id: ID!) {
+    deleteInvoice(id: $id)
+  }
+`;
 
 const StatusFormatter = ({ value }) => (
   <span className="badge badge-success">{value}</span>
@@ -26,6 +35,49 @@ const EditFormatter = ({ value }) => (
       <Link to={`/store/order/${value}`}>
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
+      &nbsp;
+      <Mutation
+        mutation={deleteInvoiceMutation}
+        update={() => {
+          swal("Invoice deleted!");
+        }}
+        onError={error => {
+          swal(
+            'Issue!',
+            error.message.replace('GraphQL error: ', ''),
+            'warning'
+          );
+        }}
+      >
+        {deleteInvoice => (
+          <Button
+            outline
+            onClick={() => {
+              return swal("Are you sure you want to do this?", {
+                buttons: {
+                  cancel: "No",
+                  catch: {
+                    text: "Yes, delete!",
+                    value: "delete",
+                  },
+                }
+              })
+              .then((val) => {
+                  switch (val) {
+                    case "delete":
+                      deleteInvoice({
+                        variables: {
+                          id: value
+                        }
+                      });
+                      break;
+                  }
+              });
+            }}>
+            <span className="lnr lnr-trash" />
+          </Button>
+        )}
+      </Mutation>
     </ButtonGroup>
   </ButtonToolbar>
 );

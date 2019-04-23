@@ -72,7 +72,6 @@ const EditFormatter = ({ value }) => (
           </Button>
         )}
       </Mutation>
-
     </ButtonGroup>
   </ButtonToolbar>
 );
