@@ -136,8 +136,8 @@ export default class ProductsListTable extends PureComponent {
                 </Link>
               </ButtonToolbar>
             </div>
-            <EditTable heads={this.heads} rows={rows} enableRowSelect />
-            <Pagination items={products} onChangePage={this.onChangePage} />
+            {rows && <EditTable heads={this.heads} rows={rows} enableRowSelect />}
+            {products && <Pagination items={products} onChangePage={this.onChangePage} />}
           </CardBody>
         </Card>
       </Col>
