@@ -26,6 +26,9 @@ const OrdersList = () => (
     <Row>
       <Col md={12}>
         <h3 className="page-title">Invoices List</h3>
+        <h3 className="page-subhead subhead">
+          Create, edit or remove your invoices.
+        </h3>
       </Col>
     </Row>
     <Row>

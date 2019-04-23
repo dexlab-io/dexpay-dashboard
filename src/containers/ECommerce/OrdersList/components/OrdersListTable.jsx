@@ -39,14 +39,15 @@ export default class OrdersListTable extends PureComponent {
     this.heads = [
       {
         key: 'invoiceNumber',
-        name: 'ID',
-        width: 80,
+        name: 'Invoice Number',
+        width: 210,
         sortable: true,
       },
       {
         key: 'fiatCurrency',
         name: 'Currency',
         sortable: true,
+        width: 90,
       },
       {
         key: 'fiatAmount',
@@ -59,17 +60,17 @@ export default class OrdersListTable extends PureComponent {
         sortable: true,
       },
       {
+        key: 'createdAt',
+        name: 'Created At',
+        formatter: DateFormatter,
+        sortable: true,
+      },
+      {
         key: 'status',
         name: 'Status',
         sortable: true,
         formatter: StatusFormatter,
         width: 110,
-      },
-      {
-        key: 'createdAt',
-        name: 'Created At',
-        formatter: DateFormatter,
-        sortable: true,
       },
       {
         key: 'edit',
@@ -100,12 +101,6 @@ export default class OrdersListTable extends PureComponent {
           <CardBody>
           <div className="card__title">
               <ButtonToolbar className="products-list__btn-toolbar-top">
-                <form className="form">
-                  <div className="form__form-group products-list__search">
-                    <input placeholder="Search..." name="search" />
-                    <MagnifyIcon />
-                  </div>
-                </form>
                 <Link className="btn btn-primary products-list__btn-add" to="/store/order/create">
                   Create new invoice
                 </Link>

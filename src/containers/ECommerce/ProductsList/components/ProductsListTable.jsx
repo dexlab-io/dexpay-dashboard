@@ -31,6 +31,7 @@ const EditFormatter = ({ value }) => (
       <Link to={`/store/product/${value}`}>
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
+      &nbsp;
       <Mutation
         mutation={deleteProductMutation}
         update={() => {
@@ -48,10 +49,25 @@ const EditFormatter = ({ value }) => (
           <Button
             outline
             onClick={() => {
-              return deleteProduct({
-                variables: {
-                  id: value
+              return swal("Are you sure you want to do this?", {
+                buttons: {
+                  cancel: "No",
+                  catch: {
+                    text: "Yes, delete!",
+                    value: "delete",
+                  },
                 }
+              })
+              .then((val) => {
+                  switch (val) {
+                    case "delete":
+                      deleteProduct({
+                        variables: {
+                          id: value
+                        }
+                      });
+                      break;
+                  }
               });
             }}>
             <span className="lnr lnr-trash" />
@@ -68,12 +84,6 @@ export default class ProductsListTable extends PureComponent {
     super();
 
     this.heads = [
-      {
-        key: 'id',
-        name: 'ID',
-        width: 80,
-        sortable: true,
-      },
       {
         key: 'title',
         name: 'Name',
@@ -121,12 +131,6 @@ export default class ProductsListTable extends PureComponent {
             <div className="card__title">
               <h5 className="bold-text">Products List</h5>
               <ButtonToolbar className="products-list__btn-toolbar-top">
-                <form className="form">
-                  <div className="form__form-group products-list__search">
-                    <input placeholder="Search..." name="search" />
-                    <MagnifyIcon />
-                  </div>
-                </form>
                 <Link className="btn btn-primary products-list__btn-add" to="/store/products/create">
                   Add new product
                 </Link>

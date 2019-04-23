@@ -59,11 +59,14 @@ const OrderCard = ({ invoice }) => (
             <OrderEditForm
               enableReinitialize
               initialValues={invoice}
-              onSubmit={data => {
+              onSubmit={({fiatAmount, cryptoAmount, status, ...data}) => {
                 // console.log('login form', data);
                 return updateInvoice({
                   variables: {
                     id: invoice.id,
+                    fiatAmount: fiatAmount.toString(),
+                    cryptoAmount: parseFloat(cryptoAmount),
+                    status: status.value,
                     ...data
                   }
                 });

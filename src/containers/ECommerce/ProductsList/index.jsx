@@ -24,7 +24,7 @@ const ProductsList = () => (
       <Col md={12}>
         <h3 className="page-title">Products List</h3>
         <h3 className="page-subhead subhead">
-          Easiliy add, edit or remove your products.
+          Add, edit or remove your products.
         </h3>
       </Col>
     </Row>

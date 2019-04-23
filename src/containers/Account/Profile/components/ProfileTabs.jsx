@@ -48,7 +48,7 @@ export default class ProfileTabs extends PureComponent {
 
   render() {
     const { user } = this.props;
-    console.log('user', user);
+    // console.log('user', user);
 
     return (
       <Col md={12} lg={12} xl={12}>

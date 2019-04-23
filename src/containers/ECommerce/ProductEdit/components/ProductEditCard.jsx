@@ -45,11 +45,12 @@ const PaymentCard = ({ product }) => (
             <ProductEditForm
               enableReinitialize
               initialValues={product}
-              onSubmit={data => {
+              onSubmit={({price, ...data}) => {
                 // console.log('login form', data);
                 return updateProduct({
                   variables: {
                     id: product.id,
+                    price: parseFloat(price),
                     ...data
                   }
                 });
