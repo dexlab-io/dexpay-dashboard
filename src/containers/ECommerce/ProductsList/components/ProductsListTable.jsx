@@ -3,13 +3,11 @@ import React, { PureComponent } from 'react';
 import { ButtonToolbar, ButtonGroup, Button, Card, CardBody, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import MagnifyIcon from 'mdi-react/MagnifyIcon';
 import { Mutation } from "react-apollo";
 import gql from 'graphql-tag';
 import swal from 'sweetalert';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
-import Pagination from '../../../../shared/components/pagination/Pagination';
 
 const deleteProductMutation = gql`
   mutation deleteProduct($id: ID!) {
@@ -131,13 +129,12 @@ export default class ProductsListTable extends PureComponent {
             <div className="card__title">
               <h5 className="bold-text">Products List</h5>
               <ButtonToolbar className="products-list__btn-toolbar-top">
-                <Link className="btn btn-primary products-list__btn-add" to="/store/products/create">
+                <Link className="btn btn-primary products-list__btn-add" to="/store/product/create">
                   Add new product
                 </Link>
               </ButtonToolbar>
             </div>
             <EditTable heads={this.heads} rows={rows} enableRowSelect />
-            <Pagination items={products} onChangePage={this.onChangePage} />
           </CardBody>
         </Card>
       </Col>

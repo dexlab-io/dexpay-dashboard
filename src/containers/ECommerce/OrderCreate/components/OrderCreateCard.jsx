@@ -23,7 +23,7 @@ const createInvoiceMutation = gql`
   }
 `;
 
-class PaymentCard extends React.Component {
+class OrderCreateCard extends React.Component {
   onSuccess = (cache, { data: { createInvoice } }) => {
     swal({
       icon: 'info',
@@ -81,4 +81,4 @@ class PaymentCard extends React.Component {
   }
 }
 
-export default PaymentCard;
+export default OrderCreateCard;

@@ -13,6 +13,7 @@ import StoreDashboard from '../Dashboards/Store/index';
 import OrdersList from '../ECommerce/OrdersList/index';
 import OrderCreate from '../ECommerce/OrderCreate/index'
 import OrderEdit from '../ECommerce/OrderEdit/index'
+import ProductCreate from '../ECommerce/ProductCreate/index'
 import ProductsList from '../ECommerce/ProductsList/index';
 import ProductEdit from '../ECommerce/ProductEdit/index';
 
@@ -38,6 +39,7 @@ const Store = () => (
     <Route path="/store/orders" component={OrdersList} />
     <Route path="/store/order/create" component={OrderCreate} />
     <Route path="/store/order/:id" component={OrderEdit} />
+    <Route path="/store/product/create" component={ProductCreate} />
     <Route path="/store/product/:id" component={ProductEdit} />
     <Route path="/store/products" component={ProductsList} />
   </Switch>
