@@ -120,6 +120,7 @@ export default class ProductsListTable extends PureComponent {
         edit: product.id
       }
     });
+    // console.log('products',products, rows);
 
     return (
       <Col md={12} lg={12}>

@@ -52,10 +52,10 @@ class OrderCreateCard extends React.Component {
             <Mutation
                 mutation={createInvoiceMutation}
                 update={this.onSuccess}
-                onError={error => {
+                onError={() => {
                   swal(
                     'Issue!',
-                    error.message.replace('GraphQL error: ', ''),
+                    'Please fill in all fields to create a invoice.',
                     'warning'
                   );
                 }}

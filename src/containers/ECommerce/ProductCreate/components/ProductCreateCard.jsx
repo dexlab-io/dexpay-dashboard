@@ -32,10 +32,10 @@ class ProductCreateCard extends React.Component {
                 update={(cache, { data: { createProduct } }) => {
                   history.push(`/store/product/${createProduct.id}`);
                 }}
-                onError={error => {
+                onError={() => {
                   swal(
                     'Issue!',
-                    error.message.replace('GraphQL error: ', ''),
+                    'Please fill in all fields to create a product.',
                     'warning'
                   );
                 }}
@@ -47,7 +47,7 @@ class ProductCreateCard extends React.Component {
                       return createProduct({
                         variables: {
                           price: parseFloat(price),
-                          status: status.value,
+                          status: status ? status.value : '',
                           ...data
                         }
                       });
