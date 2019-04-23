@@ -104,7 +104,7 @@ export default class OrdersListTable extends PureComponent {
                 </Link>
               </ButtonToolbar>
             </div>
-            {rows.length > 0 && <EditTable heads={this.heads} rows={rows} />}
+            <EditTable heads={this.heads} rows={rows} />
           </CardBody>
         </Card>
       </Col>
