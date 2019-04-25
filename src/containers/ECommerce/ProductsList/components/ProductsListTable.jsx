@@ -92,6 +92,11 @@ export default class ProductsListTable extends React.Component {
         sortable: true,
       },
       {
+        key: 'priceCurrency',
+        name: 'Price Currency',
+        sortable: true,
+      },
+      {
         key: 'status',
         name: 'Status',
         sortable: true,
