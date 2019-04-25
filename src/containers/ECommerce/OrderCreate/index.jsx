@@ -6,7 +6,7 @@ const OrderCreate = (props) => (
   <Container>
     <Row>
       <Col md={12}>
-        <h3 className="page-title">Invoice Create</h3>
+        <h3 className="page-title">Create an invoice</h3>
       </Col>
     </Row>
     <Row>

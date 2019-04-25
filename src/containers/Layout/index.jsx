@@ -58,7 +58,7 @@ class Layout extends Component {
 
   componentDidMount() {
     NotificationSystem.newInstance({}, n => notification = n);
-    setTimeout(() => showNotification(), 700);
+    // setTimeout(() => showNotification(), 700);
   }
 
   componentWillUnmount() {

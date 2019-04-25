@@ -6,6 +6,7 @@ import AccountOutlineIcon from 'mdi-react/AccountOutlineIcon';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Loading from '../../../../shared/components/Loading';
 import renderCheckBoxField from '../../../../shared/components/form/CheckBox';
 
 class LogInForm extends PureComponent {
@@ -30,7 +31,7 @@ class LogInForm extends PureComponent {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     return (
       <form className="form" onSubmit={handleSubmit}>
@@ -80,11 +81,12 @@ class LogInForm extends PureComponent {
           </div>
         </div>
         <div className="account__btns">
-          <button type="submit" className="btn btn-primary account__btn">Sign In</button>
+          <button type="submit" className="btn btn-primary account__btn" disabled={submitting}>Sign In</button>
           <Link className="btn btn-outline-primary account__btn" to="/register">Create
             Account
           </Link>
         </div>
+        {submitting && <Loading color="#646777" />}
       </form>
     );
   }

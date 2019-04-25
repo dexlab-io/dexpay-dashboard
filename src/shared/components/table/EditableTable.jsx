@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
 import PropTypes from 'prop-types';
 
-export default class EditableTable extends PureComponent {
+export default class EditableTable extends React.Component {
   static propTypes = {
     heads: PropTypes.arrayOf(PropTypes.shape({
       key: PropTypes.string,
@@ -37,7 +37,7 @@ export default class EditableTable extends PureComponent {
     const comparer = (a, b) => {
       if (sortDirection === 'ASC') {
         return (a[sortColumn] > b[sortColumn]) ? 1 : -1;
-      } else if (sortDirection === 'DESC') {
+      } if (sortDirection === 'DESC') {
         return (a[sortColumn] < b[sortColumn]) ? 1 : -1;
       }
     };
@@ -48,18 +48,18 @@ export default class EditableTable extends PureComponent {
     this.setState({ rows });
   };
 
-  rowGetter = i => this.state.rows[i];
+  rowGetter = i => this.props.rows[i];
 
   render() {
     return (
       <div className="table">
         <ReactDataGrid
-          onGridSort={this.handleGridSort}
+          // onGridSort={this.handleGridSort}
           enableCellSelect
           columns={this.props.heads}
           rowGetter={this.rowGetter}
-          rowsCount={this.state.rows.length}
-          onGridRowsUpdated={this.handleGridRowsUpdated}
+          rowsCount={this.props.rows.length}
+          // onGridRowsUpdated={this.handleGridRowsUpdated}
           rowHeight={44}
           minColumnWidth={100}
         />

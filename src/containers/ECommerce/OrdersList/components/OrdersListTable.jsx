@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Card, CardBody, Col, ButtonToolbar, ButtonGroup, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -82,7 +82,7 @@ const EditFormatter = ({ value }) => (
   </ButtonToolbar>
 );
 
-export default class OrdersListTable extends PureComponent {
+export default class OrdersListTable extends React.Component {
   constructor() {
     super();
 

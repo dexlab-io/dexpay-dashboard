@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, ButtonToolbar } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
-import CurrencyUsdIcon from 'mdi-react/CurrencyUsdIcon';
+
+import Loading from '../../../../shared/components/Loading';
 import renderSelectField from '../../../../shared/components/form/Select';
 
-const ProductEditForm = ({ handleSubmit, reset }) => (
+const ProductEditForm = ({ handleSubmit, reset, submitting }) => (
   <form className="form product-edit" onSubmit={handleSubmit}>
     <div className="form__half">
       <div className="form__form-group">
@@ -19,7 +20,7 @@ const ProductEditForm = ({ handleSubmit, reset }) => (
         </div>
       </div>
       <div className="form__form-group">
-        <span className="form__form-group-label">Full description</span>
+        <span className="form__form-group-label">Full description <small>(optional)</small></span>
         <div className="form__form-group-field">
           <Field
             name="details"
@@ -29,16 +30,10 @@ const ProductEditForm = ({ handleSubmit, reset }) => (
         </div>
       </div>
 
-      <div className="card__title">
-        <h5 className="bold-text">Pricing</h5>
-      </div>
       <div className="form__form-group-price-discount">
         <div className="form__form-group form__form-group-price">
           <span className="form__form-group-label">Price</span>
           <div className="form__form-group-field">
-            <div className="form__form-group-icon">
-              <CurrencyUsdIcon />
-            </div>
             <Field
               name="price"
               component="input"
@@ -64,9 +59,10 @@ const ProductEditForm = ({ handleSubmit, reset }) => (
     <div className="form__half">
     </div>
     <ButtonToolbar className="form__button-toolbar">
-      <Button color="primary" type="submit">Save</Button>
+      <Button color="primary" type="submit" disabled={submitting}>Save</Button>
       <Button type="button" onClick={reset}>Cancel</Button>
     </ButtonToolbar>
+    {submitting && <Loading color="#646777" />}
   </form>
 );
 

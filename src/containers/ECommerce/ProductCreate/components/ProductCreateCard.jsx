@@ -29,8 +29,8 @@ class ProductCreateCard extends React.Component {
             </div>
             <Mutation
                 mutation={createProductMutation}
-                update={(cache, { data: { createProduct } }) => {
-                  history.push(`/store/product/${createProduct.id}`);
+                update={() => {
+                  history.push(`/store/products`);
                 }}
                 onError={() => {
                   swal(
@@ -42,6 +42,7 @@ class ProductCreateCard extends React.Component {
               >
                 {createProduct => (
                   <ProductEditForm
+                    initialValues={{ status:'active' }}
                     onSubmit={({price, status, ...data}) => {
                       // console.log('login form', data);
                       return createProduct({
