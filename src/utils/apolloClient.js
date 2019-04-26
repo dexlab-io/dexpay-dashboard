@@ -11,6 +11,7 @@ import config from "./config";
 const cache = new InMemoryCache();
 
 export const persistor = new CachePersistor({
+  key: 'dexpay-dashboard-cache',
   cache,
   storage: window.localStorage,
   debug: config.config,

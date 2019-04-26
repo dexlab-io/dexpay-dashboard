@@ -10,6 +10,7 @@ import ProductEditForm from '../../ProductEdit/components/ProductEditForm';
 const query = gql`
   query Me {
     me {
+      id
       store {
         currency
       }
