@@ -28,6 +28,15 @@ const DateFormatter = ({ value }) => (
   <span>{dayjs(value).format('DD/MM/YYYY')}</span>
 );
 
+const ViewFormatter = ({ value }) => (
+  <ButtonToolbar>
+    <ButtonGroup className="btn-group--icons">
+      <a target="_blank" rel="noopener noreferrer" href={`https://app.dexpay.me/invoice/${value}`}>
+        <Button outline><span className="lnr lnr-eye" /></Button>
+      </a>
+    </ButtonGroup>
+  </ButtonToolbar>
+);
 
 const EditFormatter = ({ value }) => (
   <ButtonToolbar>
@@ -123,6 +132,12 @@ export default class OrdersListTable extends React.Component {
         width: 110,
       },
       {
+        key: 'view',
+        name: 'View',
+        sortable: false,
+        formatter: ViewFormatter,
+      },
+      {
         key: 'edit',
         name: 'Actions',
         sortable: false,
@@ -141,7 +156,8 @@ export default class OrdersListTable extends React.Component {
     const rows = invoices.map(invoice => {
       return {
         ...invoice,
-        edit: invoice.id
+        edit: invoice.id,
+        view: invoice.invoiceNumber
       }
     });
 
