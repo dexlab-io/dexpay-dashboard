@@ -38,7 +38,7 @@ const ProductEditForm = ({ handleSubmit, submitting, history }) => (
             <Field
               name="price"
               component="input"
-              type="text"
+              type="number"
             />
           </div>
         </div>
