@@ -32,6 +32,16 @@ const OrderEditForm = ({ handleSubmit, history, submitting }) => (
           </div>
         </div>
       </div>
+      <div className="form__form-group">
+        <span className="form__form-group-label">Crypto Type</span>
+        <div className="form__form-group-field">
+          <Field
+            name="assetUsed"
+            component="input"
+            type="text"
+          />
+        </div>
+      </div>
       <div className="form__form-group-price-discount">
         <div className="form__form-group form__form-group-price">
           <span className="form__form-group-label">Crypto Amount</span>

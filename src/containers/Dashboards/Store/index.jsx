@@ -66,7 +66,7 @@ class ECommerceDashboard extends PureComponent {
           {({ data, loading, error }) => {
             if (loading && !data.me) return <Loading />;
             if (error) return <p>Error: {error.message}</p>;
-            console.log('dashboard', data);
+            // console.log('dashboard', data);
 
             return (
               <React.Fragment>

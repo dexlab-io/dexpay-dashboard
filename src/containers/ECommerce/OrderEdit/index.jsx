@@ -15,6 +15,7 @@ const query = gql`
       fiatAmount
       fiatCurrency
       cryptoAmount
+      assetUsed
       status
       createdAt
     }
