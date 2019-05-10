@@ -13,6 +13,7 @@ const query = gql`
       title
       details
       price
+      priceCurrency
       status
     }
   }

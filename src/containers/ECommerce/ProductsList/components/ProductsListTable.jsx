@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Mutation } from "react-apollo";
 import gql from 'graphql-tag';
 import swal from 'sweetalert';
+import currencyjs from 'currency.js';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
 
@@ -21,6 +22,12 @@ const StatusFormatter = ({ value }) => (
 
 StatusFormatter.propTypes = {
   value: PropTypes.string.isRequired,
+};
+
+const CurrencyFormatter = ({ value }) => {
+  return currencyjs(parseFloat(value), {
+    separator: ','
+  }).format();
 };
 
 const EditFormatter = ({ value }) => (
@@ -89,6 +96,7 @@ export default class ProductsListTable extends React.Component {
       {
         key: 'price',
         name: 'Price',
+        formatter: CurrencyFormatter,
         sortable: true,
       },
       {
