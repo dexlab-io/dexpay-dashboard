@@ -68,6 +68,16 @@ const ProfileSettings = ({ handleSubmit, reset, submitting }) => (
           />
         </div>
       </div>
+      <div className="form__form-group">
+        <span className="form__form-group-label">Receive Notifications</span>
+        <div className="form__form-group-field">
+          <Field
+            name="receiveNotifications"
+            component="input"
+            type="checkbox"
+          />
+        </div>
+      </div>
     </div>
     <div className="form__half">
     </div>

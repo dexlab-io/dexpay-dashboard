@@ -15,6 +15,7 @@ const updateMeMutation = gql`
     $taxNumber: String,
     $walletAddress: String,
     $currency: String
+    $receiveNotifications: Boolean
   ) {
     updateMe(
       input: {
@@ -23,7 +24,8 @@ const updateMeMutation = gql`
         websiteUrl: $websiteUrl,
         taxNumber: $taxNumber,
         walletAddress: $walletAddress,
-        walletCurrency: $currency
+        walletCurrency: $currency,
+        receiveNotifications: $receiveNotifications
       }
     ) {
       id
@@ -93,7 +95,6 @@ export default class ProfileTabs extends PureComponent {
                           ...user.store
                         }}
                         onSubmit={data => {
-                          // console.log('login form', data);
                           return updateMe({
                             variables: data
                           });
