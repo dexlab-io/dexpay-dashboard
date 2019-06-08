@@ -78,6 +78,16 @@ const ProfileSettings = ({ handleSubmit, reset, submitting }) => (
           />
         </div>
       </div>
+      <div className="form__form-group">
+        <span className="form__form-group-label">Callback Webhook URL</span>
+        <div className="form__form-group-field">
+          <Field
+            name="webhookCallbackUrl"
+            component="input"
+            type="text"
+          />
+        </div>
+      </div>
     </div>
     <div className="form__half">
     </div>

@@ -15,7 +15,8 @@ const updateMeMutation = gql`
     $taxNumber: String,
     $walletAddress: String,
     $currency: String
-    $receiveNotifications: Boolean
+    $receiveNotifications: Boolean,
+    $webhookCallbackUrl: String,
   ) {
     updateMe(
       input: {
@@ -25,7 +26,8 @@ const updateMeMutation = gql`
         taxNumber: $taxNumber,
         walletAddress: $walletAddress,
         walletCurrency: $currency,
-        receiveNotifications: $receiveNotifications
+        receiveNotifications: $receiveNotifications,
+        webhookCallbackUrl: $webhookCallbackUrl
       }
     ) {
       id
