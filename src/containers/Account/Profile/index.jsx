@@ -21,6 +21,10 @@ const query = gql`
         walletAddress
         currency
         featuredImage
+        receiveNotifications
+        webhookCallback {
+          callbackUrl
+        }
       }
     }
   }

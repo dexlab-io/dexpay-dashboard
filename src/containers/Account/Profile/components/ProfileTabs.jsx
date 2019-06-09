@@ -94,7 +94,8 @@ export default class ProfileTabs extends PureComponent {
                         enableReinitialize
                         initialValues={{
                           ...user.profile,
-                          ...user.store
+                          ...user.store,
+                          webhookCallbackUrl: user.store.webhookCallback.callbackUrl
                         }}
                         onSubmit={data => {
                           return updateMe({
