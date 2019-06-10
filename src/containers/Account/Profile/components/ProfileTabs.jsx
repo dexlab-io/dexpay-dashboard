@@ -95,7 +95,7 @@ export default class ProfileTabs extends PureComponent {
                         initialValues={{
                           ...user.profile,
                           ...user.store,
-                          webhookCallbackUrl: user.store.webhookCallback.callbackUrl
+                          webhookCallbackUrl: user.store.webhookCallback ? user.store.webhookCallback.callbackUrl : ''
                         }}
                         onSubmit={data => {
                           return updateMe({
