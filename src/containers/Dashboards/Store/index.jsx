@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import dayjs from 'dayjs';
 
 import Loading from '../../../shared/components/Loading';
 import TotalProducts from './components/TotalProducts';
@@ -42,7 +43,6 @@ class ECommerceDashboard extends PureComponent {
   static propTypes = {
     newOrder: NewOrderTableProps.isRequired,
     dispatch: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
   };
 
   onDeleteRow = (index, e) => {
@@ -53,13 +53,13 @@ class ECommerceDashboard extends PureComponent {
   };
 
   render() {
-    const { t } = this.props;
-
     return (
       <Container className="dashboard">
         <Row>
           <Col md={12}>
-            <h3 className="page-title">{t('dashboard_commerce.page_title')}</h3>
+            <h3 className="page-title">
+              Sales Report: {dayjs().format('MMMM YYYY')}
+            </h3>
           </Col>
         </Row>
         <Query query={query} fetchPolicy="cache-and-network">

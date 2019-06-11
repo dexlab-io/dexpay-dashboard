@@ -54,7 +54,7 @@ export default class ETH extends PureComponent {
         <Card>
           <CardBody className="dashboard__card-widget">
             <div className="card__title">
-              <h5 className="bold-text">Total Order</h5>
+              <h5 className="bold-text">Total Orders</h5>
             </div>
             <div className="dashboard__total">
               <TrendingUpIcon className="dashboard__trend-icon" />
