@@ -12,6 +12,7 @@ import TotalProducts from './components/TotalProducts';
 import TotalProfit from './components/TotalProfit';
 import OrdersToday from './components/OrdersToday';
 import RecentOrders from './components/RecentOrders';
+import TopSellingProducts from './components/TopSellingProducts';
 // import ProductSales from './components/ProductSales';
 import ETH from './components/ETH';
 import { deleteNewOrderTableData } from '../../../redux/actions/newOrderTableActions';
@@ -24,6 +25,11 @@ const query = gql`
       totalIncomeFiat
       totalOrders
       ordersToday
+      topProducts {
+        _id
+        title
+        count
+      }
     }
     invoices(limit: 8) {
       id
@@ -75,6 +81,9 @@ class ECommerceDashboard extends PureComponent {
                   <TotalProfit data={data.storeStats} />
                   <OrdersToday data={data.storeStats} />
                   <ETH data={data.storeStats} />
+                </Row>
+                <Row>
+                  <TopSellingProducts products={data.storeStats.topProducts} />
                 </Row>
                 <Row>
                   <RecentOrders invoices={data.invoices} />
