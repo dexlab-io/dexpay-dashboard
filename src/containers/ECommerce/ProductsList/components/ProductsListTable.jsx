@@ -1,11 +1,12 @@
 /* eslint-disable react/no-unused-state */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { ButtonToolbar, ButtonGroup, Button, Card, CardBody, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Mutation } from "react-apollo";
 import gql from 'graphql-tag';
 import swal from 'sweetalert';
+import currencyjs from 'currency.js';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
 
@@ -21,6 +22,12 @@ const StatusFormatter = ({ value }) => (
 
 StatusFormatter.propTypes = {
   value: PropTypes.string.isRequired,
+};
+
+const CurrencyFormatter = ({ value }) => {
+  return currencyjs(parseFloat(value), {
+    separator: ','
+  }).format();
 };
 
 const EditFormatter = ({ value }) => (
@@ -72,12 +79,11 @@ const EditFormatter = ({ value }) => (
           </Button>
         )}
       </Mutation>
-
     </ButtonGroup>
   </ButtonToolbar>
 );
 
-export default class ProductsListTable extends PureComponent {
+export default class ProductsListTable extends React.Component {
   constructor() {
     super();
 
@@ -90,6 +96,12 @@ export default class ProductsListTable extends PureComponent {
       {
         key: 'price',
         name: 'Price',
+        formatter: CurrencyFormatter,
+        sortable: true,
+      },
+      {
+        key: 'priceCurrency',
+        name: 'Price Currency',
         sortable: true,
       },
       {
@@ -106,6 +118,20 @@ export default class ProductsListTable extends PureComponent {
         formatter: EditFormatter,
       },
     ];
+
+    this.state = {
+      products: []
+    };
+  }
+
+  componentDidMount() {
+    this.loadProducts();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.products !== prevProps.products) {
+      this.loadProducts();
+    }
   }
 
   onChangePage = (pageOfItems) => {
@@ -113,14 +139,19 @@ export default class ProductsListTable extends PureComponent {
     this.setState({ pageOfItems });
   };
 
-  render() {
-    const { products }=this.props;
+  loadProducts() {
+    const { products } = this.props;
     const rows = products.map(product => {
       return {
         ...product,
         edit: product.id
       }
     });
+    this.setState({ products: rows });
+  }
+
+  render() {
+    const { products } = this.state;
 
     return (
       <Col md={12} lg={12}>
@@ -134,7 +165,7 @@ export default class ProductsListTable extends PureComponent {
                 </Link>
               </ButtonToolbar>
             </div>
-            <EditTable heads={this.heads} rows={rows} enableRowSelect />
+            <EditTable heads={this.heads} rows={products} enableRowSelect />
           </CardBody>
         </Card>
       </Col>

@@ -5,11 +5,6 @@ import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Panel from '../../../../shared/components/Panel';
 
-const data01 = [{ name: 'Sony Xperia Z', value: 12934, fill: '#4ce1b6' },
-  { name: 'Xiaomi Mi 6', value: 9934, fill: '#70bbfd' },
-  { name: 'Apple Iphone 7 Plus', value: 20432, fill: '#f6da6e' },
-  { name: 'Apple Iphone 6 Plus', value: 15432, fill: '#ff4861' }];
-
 const style = {
   left: 0,
   width: 150,
@@ -33,17 +28,36 @@ renderLegend.propTypes = {
   })).isRequired,
 };
 
-const TopSellingProducts = ({ t }) => (
-  <Panel lg={12} xl={6} md={12} xs={12} title={t('dashboard_commerce.top_selling_products')}>
-    <ResponsiveContainer className="dashboard__chart-pie dashboard__chart-pie--commerce" height={360}>
-      <PieChart className="dashboard__chart-pie-container">
-        <Tooltip />
-        <Pie data={data01} dataKey="value" cy={180} innerRadius={130} outerRadius={160} label />
-        <Legend layout="vertical" verticalAlign="bottom" wrapperStyle={style} content={renderLegend} />
-      </PieChart>
-    </ResponsiveContainer>
-  </Panel>
-);
+const TopSellingProducts = ({ t, products }) => {
+  if (products.length === 0) {
+    return null;
+  }
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  const data = products.map(product => ({
+    name: product.title, value: product.count, fill: getRandomColor()
+  }));
+
+  return (
+    <Panel lg={12} xl={12} md={12} xs={12} title={t('dashboard_commerce.top_selling_products')}>
+      <ResponsiveContainer className="dashboard__chart-pie dashboard__chart-pie--commerce" height={360}>
+        <PieChart className="dashboard__chart-pie-container">
+          <Tooltip />
+          <Pie data={data} dataKey="value" cy={180} innerRadius={130} outerRadius={160} label />
+          <Legend layout="vertical" verticalAlign="bottom" wrapperStyle={style} content={renderLegend} />
+        </PieChart>
+      </ResponsiveContainer>
+    </Panel>
+  );
+}
 
 TopSellingProducts.propTypes = {
   t: PropTypes.func.isRequired,

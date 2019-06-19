@@ -5,6 +5,8 @@ import KeyVariantIcon from 'mdi-react/KeyVariantIcon';
 import MailRuIcon from 'mdi-react/MailRuIcon';
 import PropTypes from 'prop-types';
 
+import Loading from '../../../../shared/components/Loading';
+
 class RegisterForm extends PureComponent {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
@@ -27,7 +29,7 @@ class RegisterForm extends PureComponent {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     return (
       <form className="form" onSubmit={handleSubmit}>
@@ -65,8 +67,9 @@ class RegisterForm extends PureComponent {
           </div>
         </div>
         <div className="account__btns">
-          <button type="submit" className="btn btn-primary account__btn">Sign Up</button>
+          <button type="submit" className="btn btn-primary account__btn" disabled={submitting}>Sign Up</button>
         </div>
+        {submitting && <Loading color="#646777" />}
       </form>
     );
   }

@@ -16,7 +16,7 @@
   "dashboard_commerce": {
     "page_title": "Dashboard",
     "total_products": "Total products",
-    "total_profit": "Total profit",
+    "total_profit": "Total sales",
     "orders_today": "Orders today",
     "subscriptions": "Subscriptions",
     "product_sales": "Product sales",
@@ -26,9 +26,9 @@
     "sales_report": "Sales report",
     "emails": "Emails",
     "short_reminders": "Short reminders",
-    "top_selling_products": "Top selling products",
+    "top_selling_products": "Top products",
     "basic_card": "Basic card",
-    "recent_orders": "Recent orders"
+    "recent_orders": "Recent invoices"
   },
   "dashboard_fitness": {
     "page_title": "Dashboard Fitness",

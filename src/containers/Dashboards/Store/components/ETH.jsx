@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
 import { Card, CardBody, Col } from 'reactstrap';
-import { AreaChart, Tooltip, Area, ResponsiveContainer } from 'recharts';
-import TrendingDownIcon from 'mdi-react/TrendingDownIcon';
+// import { AreaChart, Tooltip, Area, ResponsiveContainer } from 'recharts';
+import TrendingUpIcon from 'mdi-react/TrendingUpIcon';
 import PropTypes from 'prop-types';
 
-const data = [{ name: 'Mon', eth: 70.23 },
-  { name: 'Tue', eth: 80.5 },
-  { name: 'Wed', eth: 38.45 },
-  { name: 'Thu', eth: 89.2 },
-  { name: 'Fri', eth: 105.61 },
-  { name: 'Sat', eth: 98.6 },
-  { name: 'Sun', eth: 115 }];
+// const data = [{ name: 'Mon', eth: 70.23 },
+//   { name: 'Tue', eth: 80.5 },
+//   { name: 'Wed', eth: 38.45 },
+//   { name: 'Thu', eth: 89.2 },
+//   { name: 'Fri', eth: 105.61 },
+//   { name: 'Sat', eth: 98.6 },
+//   { name: 'Sun', eth: 115 }];
 
 const CustomTooltip = ({ active, payload }) => {
   if (active) {
@@ -37,31 +37,31 @@ CustomTooltip.defaultProps = {
 };
 
 export default class ETH extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      activeIndex: 0,
-    };
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     activeIndex: 0,
+  //   };
+  // }
 
   render() {
-    const { activeIndex } = this.state;
-    const activeItem = data[activeIndex];
+    // const { activeIndex } = this.state;
+    // const activeItem = data[activeIndex];
+    const { data } = this.props;
 
     return (
       <Col md={12} xl={3} lg={6} xs={12}>
         <Card>
           <CardBody className="dashboard__card-widget">
             <div className="card__title">
-              <h5 className="bold-text">ETH</h5>
-              <h5 className="subhead">Ethereum</h5>
+              <h5 className="bold-text">Total Orders</h5>
             </div>
-            <div className="dashboard__total dashboard__total--area">
-              <TrendingDownIcon className="dashboard__trend-icon" />
+            <div className="dashboard__total">
+              <TrendingUpIcon className="dashboard__trend-icon" />
               <p className="dashboard__total-stat">
-                ${(activeItem.eth).toFixed(2)}
+                {data.totalOrders}
               </p>
-              <ResponsiveContainer height={70} className="dashboard__chart-container">
+              {/* <ResponsiveContainer height={70} className="dashboard__chart-container">
                 <AreaChart data={data} margin={{ top: 0, left: 0, bottom: 0 }}>
                   <Tooltip content={<CustomTooltip />} />
                   <Area
@@ -73,7 +73,7 @@ export default class ETH extends PureComponent {
                     fillOpacity={0.2}
                   />
                 </AreaChart>
-              </ResponsiveContainer>
+              </ResponsiveContainer> */}
             </div>
           </CardBody>
         </Card>

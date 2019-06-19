@@ -11,8 +11,9 @@ const updateInvoiceMutation = gql`
     $id: ID!,
     $fiatAmount: String,
     $fiatCurrency: String,
-    $cryptoAmount: Int,
-    $status: InvoiceStatus
+    $cryptoAmount: Float,
+    $status: InvoiceStatus,
+    $assetUsed: AssetUsedType
   ) {
     updateInvoice(
       id: $id,
@@ -20,7 +21,8 @@ const updateInvoiceMutation = gql`
         fiatAmount: $fiatAmount,
         fiatCurrency: $fiatCurrency,
         cryptoAmount: $cryptoAmount,
-        status: $status
+        status: $status,
+        assetUsed: $assetUsed
       }
     ) {
       id

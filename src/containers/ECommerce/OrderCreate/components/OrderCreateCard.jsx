@@ -7,9 +7,9 @@ import swal from 'sweetalert';
 import OrderCreateForm from './OrderCreateForm';
 
 const createInvoiceMutation = gql`
-  mutation createInvoice($fiatAmount: String!, $fiatCurrency: String!) {
+  mutation createInvoice($fiatAmount: String!, $fiatCurrency: String!, $invoiceType: InvoiceType!) {
     createInvoice(
-      input: { fiatAmount: $fiatAmount, fiatCurrency: $fiatCurrency }
+      input: { fiatAmount: $fiatAmount, fiatCurrency: $fiatCurrency, invoiceType: $invoiceType }
     ) {
       id
       invoiceNumber
@@ -52,10 +52,10 @@ class OrderCreateCard extends React.Component {
             <Mutation
                 mutation={createInvoiceMutation}
                 update={this.onSuccess}
-                onError={error => {
+                onError={() => {
                   swal(
                     'Issue!',
-                    error.message.replace('GraphQL error: ', ''),
+                    'Please fill in all fields to create a invoice.',
                     'warning'
                   );
                 }}
@@ -67,7 +67,8 @@ class OrderCreateCard extends React.Component {
                       return createInvoice({
                         variables: {
                           fiatAmount: data.amount.toString(),
-                          fiatCurrency: data.currency.value
+                          fiatCurrency: data.currency.value,
+                          invoiceType: 'invoice'
                         }
                       });
                     }}

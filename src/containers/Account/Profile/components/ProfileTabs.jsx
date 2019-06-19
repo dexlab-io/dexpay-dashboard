@@ -15,6 +15,8 @@ const updateMeMutation = gql`
     $taxNumber: String,
     $walletAddress: String,
     $currency: String
+    $receiveNotifications: Boolean,
+    $webhookCallbackUrl: String,
   ) {
     updateMe(
       input: {
@@ -23,7 +25,9 @@ const updateMeMutation = gql`
         websiteUrl: $websiteUrl,
         taxNumber: $taxNumber,
         walletAddress: $walletAddress,
-        walletCurrency: $currency
+        walletCurrency: $currency,
+        receiveNotifications: $receiveNotifications,
+        webhookCallbackUrl: $webhookCallbackUrl
       }
     ) {
       id
@@ -90,10 +94,10 @@ export default class ProfileTabs extends PureComponent {
                         enableReinitialize
                         initialValues={{
                           ...user.profile,
-                          ...user.store
+                          ...user.store,
+                          webhookCallbackUrl: user.store.webhookCallback ? user.store.webhookCallback.callbackUrl : ''
                         }}
                         onSubmit={data => {
-                          // console.log('login form', data);
                           return updateMe({
                             variables: data
                           });

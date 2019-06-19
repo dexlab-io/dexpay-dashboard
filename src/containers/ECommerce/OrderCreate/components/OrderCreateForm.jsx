@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import CurrencyUsdIcon from 'mdi-react/CurrencyUsdIcon';
 
+import Loading from '../../../../shared/components/Loading';
 import renderSelectField from '../../../../shared/components/form/Select';
 
 const currencies = [
@@ -17,16 +18,13 @@ const currencies = [
   { value: 'CNY', label: 'Renminbi'}
 ]
 
-const OrderCreateForm = ({ handleSubmit, reset }) => (
+const OrderCreateForm = ({ handleSubmit, reset, submitting }) => (
   <form className="form product-edit" onSubmit={handleSubmit}>
     <div className="form__half">
       <div className="form__form-group-price-discount">
         <div className="form__form-group form__form-group-price">
           <span className="form__form-group-label">Amount</span>
           <div className="form__form-group-field">
-            <div className="form__form-group-icon">
-              <CurrencyUsdIcon />
-            </div>
             <Field
               name="amount"
               component="input"
@@ -48,9 +46,10 @@ const OrderCreateForm = ({ handleSubmit, reset }) => (
       </div>
     </div>
     <ButtonToolbar className="form__button-toolbar">
-      <Button color="primary" type="submit">Create</Button>
+      <Button color="primary" type="submit" disabled={submitting}>Create</Button>
       <Button type="button" onClick={reset}>Cancel</Button>
     </ButtonToolbar>
+    {submitting && <Loading color="#646777" />}
   </form>
 );
 

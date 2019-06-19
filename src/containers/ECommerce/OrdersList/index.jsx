@@ -32,7 +32,7 @@ const OrdersList = () => (
       </Col>
     </Row>
     <Row>
-      <Query query={query} fetchPolicy="cache-and-network">
+      <Query query={query} fetchPolicy="cache-and-network" pollInterval={5000}>
         {({ data, loading, error }) => {
           if (loading && !data.invoices) return <Loading />;
           if (error) return <p>Error: {error.message}</p>;

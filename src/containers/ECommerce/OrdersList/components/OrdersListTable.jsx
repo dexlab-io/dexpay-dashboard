@@ -1,11 +1,20 @@
 /* eslint-disable react/no-unused-state */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Card, CardBody, Col, ButtonToolbar, ButtonGroup, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { Mutation } from "react-apollo";
+import gql from 'graphql-tag';
+import swal from 'sweetalert';
 
 import EditTable from '../../../../shared/components/table/EditableTable';
+
+const deleteInvoiceMutation = gql`
+  mutation deleteInvoice($id: ID!) {
+    deleteInvoice(id: $id)
+  }
+`;
 
 const StatusFormatter = ({ value }) => (
   <span className="badge badge-success">{value}</span>
@@ -19,6 +28,15 @@ const DateFormatter = ({ value }) => (
   <span>{dayjs(value).format('DD/MM/YYYY')}</span>
 );
 
+const ViewFormatter = ({ value }) => (
+  <ButtonToolbar>
+    <ButtonGroup className="btn-group--icons">
+      <a target="_blank" rel="noopener noreferrer" href={`https://app.dexpay.me/invoice/${value}`}>
+        <Button outline><span className="lnr lnr-eye" /></Button>
+      </a>
+    </ButtonGroup>
+  </ButtonToolbar>
+);
 
 const EditFormatter = ({ value }) => (
   <ButtonToolbar>
@@ -26,11 +44,54 @@ const EditFormatter = ({ value }) => (
       <Link to={`/store/order/${value}`}>
         <Button outline><span className="lnr lnr-pencil" /></Button>
       </Link>
+      &nbsp;
+      <Mutation
+        mutation={deleteInvoiceMutation}
+        update={() => {
+          swal("Invoice deleted!");
+        }}
+        onError={error => {
+          swal(
+            'Issue!',
+            error.message.replace('GraphQL error: ', ''),
+            'warning'
+          );
+        }}
+      >
+        {deleteInvoice => (
+          <Button
+            outline
+            onClick={() => {
+              return swal("Are you sure you want to do this?", {
+                buttons: {
+                  cancel: "No",
+                  catch: {
+                    text: "Yes, delete!",
+                    value: "delete",
+                  },
+                }
+              })
+              .then((val) => {
+                  switch (val) {
+                    case "delete":
+                      deleteInvoice({
+                        variables: {
+                          id: value
+                        }
+                      });
+                      break;
+                  }
+              });
+            }}>
+            <span className="lnr lnr-trash" />
+          </Button>
+        )}
+      </Mutation>
     </ButtonGroup>
   </ButtonToolbar>
 );
 
-export default class OrdersListTable extends PureComponent {
+export default class OrdersListTable extends React.Component {
   constructor() {
     super();
 
@@ -71,6 +132,12 @@ export default class OrdersListTable extends PureComponent {
         width: 110,
       },
       {
+        key: 'view',
+        name: 'View',
+        sortable: false,
+        formatter: ViewFormatter,
+      },
+      {
         key: 'edit',
         name: 'Actions',
         sortable: false,
@@ -89,7 +156,8 @@ export default class OrdersListTable extends PureComponent {
     const rows = invoices.map(invoice => {
       return {
         ...invoice,
-        edit: invoice.id
+        edit: invoice.id,
+        view: invoice.invoiceNumber
       }
     });
 
@@ -104,7 +172,7 @@ export default class OrdersListTable extends PureComponent {
                 </Link>
               </ButtonToolbar>
             </div>
-            {rows.length > 0 && <EditTable heads={this.heads} rows={rows} />}
+            <EditTable heads={this.heads} rows={rows} />
           </CardBody>
         </Card>
       </Col>

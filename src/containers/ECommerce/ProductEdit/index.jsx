@@ -29,7 +29,7 @@ const ProductEdit = ({match}) => {
         </Col>
       </Row>
       <Row>
-        <Query query={query} variables={{ id }}>
+        <Query query={query} variables={{ id }} fetchPolicy="cache-and-network">
           {({ loading, error, data }) => {
             if (loading) return <Loading />;
             if (error) return `Error!: ${error}`;
