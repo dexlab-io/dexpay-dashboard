@@ -7,6 +7,7 @@ import NotFound404 from '../DefaultPage/404/index';
 
 import Profile from '../Account/Profile/index';
 import LogIn from '../Account/LogIn/index';
+import JwtLogIn from '../Account/LogIn/JwtLogIn';
 import Register from '../Account/Register/index';
 
 import StoreDashboard from '../Dashboards/Store/index';
@@ -78,6 +79,7 @@ const Router = () => (
         <Route exact path="/" component={LogIn} />
         <Route path="/404" component={NotFound404} />
         <Route path="/login" component={LogIn} />
+        <Route path="/jwt-login/:token" component={JwtLogIn} />
         <Route path="/register" component={Register} />
         <Route path="/" component={WrappedRoutes} />
       </Switch>
